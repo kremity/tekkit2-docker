@@ -1,0 +1,15 @@
+services:
+  tekkit2:
+    image: kremity/tekkit2:1.2.6
+    container_name: tekkit2
+    restart: unless-stopped
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "true"
+      MEMORY: 6G
+      TZ: Europe/Amsterdam
+    volumes:
+      - /mnt/data/tekkit2:/tekkit2 # Change this to your desired host directory
+    stdin_open: true
+    tty: true

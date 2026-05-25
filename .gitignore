@@ -1,0 +1,11 @@
+# Local server data — never commit
+data/
+world/
+*.zip
+*.jar
+
+# Editor / OS junk
+.idea/
+.vscode/
+*.swp
+.DS_Store
