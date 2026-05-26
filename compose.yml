@@ -7,9 +7,15 @@ services:
       - "25565:25565"
     environment:
       EULA: "true"
-      MEMORY: 6G
-      TZ: Europe/Amsterdam
+      MEMORY: 6G # Change this to your desired amount of RAM allocation, 6G is recommended
+      TZ: Europe/Amsterdam # Change this to your desried timezone
     volumes:
       - /mnt/data/tekkit2:/tekkit2 # Change this to your desired host directory
     stdin_open: true
     tty: true
+    networks:
+      - tekkit-server
+
+networks:
+  tekkit-server:
+    name: tekkit-server
