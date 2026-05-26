@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# --- First-run population from baked image content ---
+if ! ls /tekkit2/forge-1.12.2-*.jar >/dev/null 2>&1; then
+    echo "Populating /tekkit2 with Tekkit 2 server files (first boot)..."
+    cp -a /opt/tekkit2-default/. /tekkit2/
+fi
+
 # --- EULA check ---
 if [ "${EULA,,}" != "true" ]; then
     cat >&2 <<'EOF'
@@ -44,14 +50,10 @@ fi
 
 # --- Locate the Forge launchable jar ---
 cd /tekkit2
-FORGE_JAR=$(ls forge-*-universal.jar 2>/dev/null | head -n1)
+FORGE_JAR=$(find . -maxdepth 1 -name "forge-*-universal.jar" 2>/dev/null | head -n1 || true)
 if [ -z "$FORGE_JAR" ]; then
-    FORGE_JAR=$(ls forge-1.12.2-*.jar 2>/dev/null | grep -v installer | head -n1)
-fi
-if [ -z "$FORGE_JAR" ]; then
-    echo "ERROR: Could not find Forge server jar in /tekkit2" >&2
-    ls -la /tekkit2 >&2
-    exit 1
+    FORGE_JAR=$(find . -maxdepth 1 -name "forge-1.12.2-*.jar" \
+        ! -name "*installer*" 2>/dev/null | head -n1 || true)
 fi
 
 echo "Launching Tekkit 2 v${TEKKIT_VERSION} with ${MEMORY} heap (jar: ${FORGE_JAR})..."

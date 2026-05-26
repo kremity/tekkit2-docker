@@ -19,7 +19,7 @@ RUN apt-get update \
         ca-certificates \
         tini \
  && rm -rf /var/lib/apt/lists/* \
- && mkdir -p /tekkit2 /tmp/extract \
+ && mkdir -p /opt/tekkit2-default /tmp/extract \
  && curl -fSL "${TEKKIT_SERVER_URL}" -o /tmp/server.zip \
  && unzip -q /tmp/server.zip -d /tmp/extract \
  && cd /tmp/extract \
@@ -28,9 +28,9 @@ RUN apt-get update \
     else \
         src="/tmp/extract"; \
     fi \
- && cp -a "$src"/. /tekkit2/ \
+ && cp -a "$src"/. /opt/tekkit2-default/ \
  && rm -rf /tmp/extract /tmp/server.zip \
- && cd /tekkit2 \
+ && cd /opt/tekkit2-default \
  && if ls forge-*-universal.jar >/dev/null 2>&1; then \
         rm -f forge-*-installer.jar forge-*-installer.jar.log; \
     elif ls forge-*-installer.jar >/dev/null 2>&1; then \
