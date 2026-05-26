@@ -21,7 +21,7 @@ and the individual mod authors.
 ```bash
 mkdir -p /srv/tekkit2 && cd /srv/tekkit2
 curl -O https://raw.githubusercontent.com/kremity/tekkit2-docker/main/compose.yml
-# edit compose.yml — at minimum confirm EULA=true and adjust MEMORY
+# edit compose.yml — at minimum confirm EULA=true, adjust MEMORY and Volumes
 docker compose up -d
 ```
 
